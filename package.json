@@ -1,0 +1,9 @@
+{
+  "name": "tensorflowbot",
+  "version": "1.0.0",
+  "description": "Tensorflow Training",
+  "main": "server.js",
+  "author": "IMZihad21",
+  "license": "MIT",
+  "private": true
+}
