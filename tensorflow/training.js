@@ -7,17 +7,19 @@ if (fs.existsSync('./tensorflow/savedModels/testmodel')) {
     model = await tf.loadLayersModel('file://./tensorflow/savedModels/testmodel/model.json')
 }
 else {
-    model = tf.sequential();
-    model.add(tf.layers.dense({
-        inputShape: [ 2 ],
-        units: 10,
-        activation: 'sigmoid'
-    }))
-
-    model.add(tf.layers.dense({
-        units: 1,
-        activation: 'sigmoid'
-    }))
+    model = tf.sequential({
+        layers: [
+            tf.layers.dense({
+                inputShape: [ 2 ],
+                units: 10,
+                activation: 'sigmoid'
+            }),
+            tf.layers.dense({
+                units: 1,
+                activation: 'sigmoid'
+            })
+        ]
+    })
 }
 
 model.compile({

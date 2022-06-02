@@ -1,5 +1,6 @@
 import { Client, Intents } from 'discord.js';
 import configs from '../configs/config.js';
+import xorChecker from '../tensorflow/xorChecker.js';
 
 
 const discordClient = new Client({
@@ -18,9 +19,19 @@ discordClient.addListener('messageCreate', async (message) => {
         if (command === 'ping') {
             message.reply(`PONG! \n${message.author.username}'s ping is roughly ${Math.round(message.client.ws.ping)}ms.`);
         }
-        else if (command === 'ask') {
+        else if (command === 'xor') {
             const question = args.join(' ');
-            message.reply(`${message.author.username} asked: ${question}`);
+            const query = question.split(' ').map(x => parseInt(x));
+            if (query.length !== 2) {
+                message.reply('Please enter two numbers.');
+                return;
+            }
+            if (query[ 0 ] > 1 || query[ 1 ] > 1) {
+                message.reply('Please enter two binary numbers.');
+                return;
+            }
+            const result = await xorChecker(query);
+            message.reply(`${message.author.username} asked for XOR value of: ${question} \nThe answer is: ${result.value} \nAccurate Answer: ${result.accuracy}`);
         }
         else {
             message.reply('Unknown command.');
