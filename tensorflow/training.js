@@ -10,7 +10,7 @@ else {
     model = tf.sequential();
     model.add(tf.layers.dense({
         inputShape: [ 2 ],
-        units: 5,
+        units: 10,
         activation: 'sigmoid'
     }))
 
@@ -57,7 +57,7 @@ const predict = async input => {
 }
 
 async function main() {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10000; i++) {
         await train()
     }
     await model.save('file://./tensorflow/savedModels/testmodel')
